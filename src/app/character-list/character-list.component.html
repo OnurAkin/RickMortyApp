@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+      <div class="col-8 mb-4">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Search characters..." 
+          [(ngModel)]="searchTerm" 
+          (input)="filterCharacters()"
+        >
+      </div>
+      <div class="col-2 mb-4">
+        <select class="form-select" [(ngModel)]="selectedStatus" (change)="filterCharacters()">
+            <option value="">All</option>
+            <option value="Alive">Alive</option>
+            <option value="Dead">Dead</option>
+            <option value="unknown">Unknown</option>
+          </select>
+      </div>
+      <div class="col-2 mb-4">
+        <select class="form-select" [(ngModel)]="selectedGender" (change)="filterCharacters()">
+            <option value="">All</option>
+            <option value="female">Female</option>
+            <option value="Male">Male</option>
+            <option value="unknown">Unknown</option>
+          </select>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let character of filteredCharacters">
+        <div class="card h-100">
+          <img [src]="character.image" class="card-img-top" alt="Character Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ character.name }}</h5>
+            <p class="card-text"><strong>Status:</strong>  <span class="status-indicator {{ getCharacterStatusClass(character.status) }}"></span> {{ character.status }}</p>
+            <p class="card-text"><strong>Species:</strong> {{ character.species }}</p>
+            <p class="card-text"><strong>Gender:</strong> {{ character.gender }}</p>
+            <a [routerLink]="['/character', character.id]" class="btn btn-primary btn-block">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <nav *ngIf="totalPages > 1">
+            <ul class="pagination">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+              </li>
+              <li class="page-item" *ngFor="let page of getPaginationArray()">
+                <a class="page-link" (click)="goToPage(page)" [class.active]="currentPage === page">{{ page }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,18 @@
+<div *ngIf="character" class="container mt-4">
+    <div class="row">
+      <div class="col-md-4">
+        <img [src]="character.image" alt="Character Image" class="img-fluid rounded">
+      </div>
+      <div class="col-md-8">
+        <h2 class="my-3">{{ character.name }}</h2>
+        <ul class="list-group">
+          <li class="list-group-item"><strong>Status:</strong> {{ character.status }}</li>
+          <li class="list-group-item"><strong>Species:</strong> {{ character.species }}</li>
+          <li class="list-group-item" *ngIf="character.type"><strong>Type:</strong> {{ character.type }}</li>
+          <li class="list-group-item"><strong>Gender:</strong> {{ character.gender }}</li>
+          <li class="list-group-item"><strong>Origin:</strong> {{ character.origin.name }}</li>
+          <li class="list-group-item"><strong>Location:</strong> {{ character.location.name }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
